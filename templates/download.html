@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Filled Template</title>
+</head>
+<body>
+    <h2>Your template is ready for download!</h2>
+    <a href="{{ url_for('static', filename='uploads/' + filename) }}" download>Click here to download the filled template</a>
+</body>
+</html>

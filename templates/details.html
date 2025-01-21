@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Welcome, <span id="usernameDisplay">{{ username }}</span></h1>
+        <form method="POST" action="{{ url_for('save_details') }}"> 
+            <label for="program">Program:</label>
+            <input type="text" id="program" name="program" required>
+            
+            <label for="section">Section:</label>
+            <input type="text" id="section" name="section" required>
+            
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year" required>
+            
+            <label for="academicYear">Academic Year:</label>
+            <input type="text" id="academicYear" name="academicYear" required>
+            
+            <label for="semester">Semester:</label>
+            <input type="text" id="semester" name="semester" required>
+            
+            <label for="batch">Batch:</label>
+            <input type="text" id="batch" name="batch" required>
+            
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            
+            <button type="submit" id="submitButton">Submit</button> 
+        </form>
+    </div>
+    <script src="details.js"></script>
+</body>
+</html>

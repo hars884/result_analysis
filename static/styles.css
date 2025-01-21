@@ -7,7 +7,6 @@ body {
     margin: 0;
 }
 
-/* Style the form container */
 .form-container {
     background-color: white;
     padding: 20px;
@@ -16,14 +15,12 @@ body {
     width: 300px;
 }
 
-/* Label styling */
 label {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
 }
 
-/* Input field styling */
 input[type="text"],
 input[type="password"] {
     width: 100%;
@@ -34,11 +31,10 @@ input[type="password"] {
     box-sizing: border-box;
 }
 
-/* Button styling */
 button {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: #2a6abd;
     color: white;
     border: none;
     border-radius: 5px;
@@ -46,7 +42,6 @@ button {
     font-size: 16px;
 }
 
-/* Button hover effect */
 button:hover {
-    background-color: #45a049;
+    background-color: #22588afc;
 }

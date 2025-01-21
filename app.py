@@ -1,86 +1,82 @@
-import pandas as pd
+import os
 from docx import Document
-datafile=pd.ExcelFile("Book.xlsx")
-subject=["MA3354","CS3301","CS3351","CS3352","CS3391"]
-doc = Document("finaldoc.docx")
-i=0
-j=0
-num=0
-samp=[]
-def table1(sub):
-    global samp
-    global num
-    global j
-    df=pd.read_excel("Book.xlsx",sheet_name=sub)
-    dic1={}
-    dic1["sn"]=j
-    dic1["couc"]=sub
-    dic1["cout"]=sub
-    dic1["l"]=1
-    dic1["t"]=2
-    dic1["p"]=3
-    dic1["c"]=4
-    dic1["couf"]="sdfgbn"
-    dic1["dept"]="fds"
-    dic1["tns"]=len(df["name"])
-    dic1["nosa"]=len(df[df["UR"]!="ab"])
-    dic1["nosab"]=dic1["tns"]-dic1["nosa"]
-    dic1["nosp"] = len(df[(df["UR"] != 'ab') & (df["UR"] != 'RA')])
-    dic1["nosf"]=dic1["nosa"]-dic1["nosp"]
-    dic1["pp"]=f"{(dic1["nosp"]/dic1["nosa"])*100:.1f}"
-    if j==0:
-        oac=[]
-        for sheet_name in datafile.sheet_names:
-            dfs = pd.read_excel("Book.xlsx", sheet_name=sheet_name) 
-            if 'UR' in dfs.columns and 'name' in dfs.columns:
-                filtered_names = dfs[(dfs['UR'] != 'ab') & (dfs['UR'] != 'RA')]['name'].tolist()
-            oac.append(filtered_names)
-        samp=oac[0]
-        for sl in range(1,len(oac)):
-            samp1=[item for item in samp if item in oac[sl]]
-            samp=samp1
-        dfs = pd.read_excel("Book.xlsx", sheet_name="Sheet1")
-        num=len(dfs[dfs["ARH"]=="ar"])
-        print(samp," ",num)
-    j=1
-    dic1["cwa"]=f"{len(samp):.2f}"
-    dic1["cwap"]=int((len(samp)/len(df["name"]))*100)#f"{(len(samp)/len(df["name"]))*100:.2f}"
-    dic1["ywac"]=num
-    return dic1
-def table2(sub):
-    dic1={}
-    dic1["sn"]=j
-    dic1["couc"]=sub
-    dic1["cout"]=sub
-    dic1["l"]=1
-    dic1["t"]=2
-    dic1["p"]=3
-    dic1["c"]=4
-    dic1["couf"]="sdfgbn"
-    dic1["dept"]="fds"
-for table_index, table in enumerate(doc.tables):
-    #print('t',table_index,end=" ")
-    #print('rc',len(table.rows),end=" ")
-    table = doc.tables[0]
-    if len(table.rows)>2:
-        if len(table.rows) < len(subject):
-            print(len(table.rows),len(subject))
-            for _ in range(len(subject) - (len(table.rows)-2)):
-                table.add_row()
-        for col_index in range(15, 18):
-            start_cell = table.cell(2, col_index) 
-            for row_index in range(2, len(table.rows)): 
-                start_cell.merge(table.cell(row_index, col_index))
-        for row_index, row in enumerate(table.rows):
-            #print('r',row_index,end=" ")
-            #print('cc',len(row.cells),end=" ")
-            data=table1(subject[i])
-            da=list(data.keys())
-            if row_index>=2:
-                for cell_index, cell in enumerate(row.cells):
-                    key = da[cell_index]  
-                    cell.text = str(data[key])
-                i+=1
-    break
-doc.save("output_checked_cells.docx")
-print("I am harshini")
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+@app.route("/")
+def login():
+    return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
+def handle_login():
+    username = request.form.get("username")
+    return redirect(url_for("details", username=username))
+
+@app.route("/details")
+def details():
+    username = request.args.get("username")
+    return render_template("details.html", username=username)
+
+@app.route("/save_details", methods=["POST"])
+def save_details():
+    program = request.form.get("program")
+    section = request.form.get("section")
+    year = request.form.get("year")
+    academic_year = request.form.get("academicYear")
+    semester = request.form.get("semester")
+    batch = request.form.get("batch")
+    date = request.form.get("date")
+
+    # Here you could store the data, e.g., in a database or a file.
+    doc = Document("template.docx")
+    placeholders = {
+        "{{program}}": program,
+        "{{sec}}": section,
+        "{{year}}": year,
+        "{{acyear}}": academic_year,
+        "{{sem}}": semester,
+        "{{batch}}": batch,
+        "{{date}}": date
+    }
+
+    for placeholder, value in placeholders.items():
+        for paragraph in doc.paragraphs:
+            if placeholder in paragraph.text:
+                paragraph.text = paragraph.text.replace(placeholder, value)
+
+    doc.save("output.docx")
+
+    return redirect(url_for("upload"))
+
+@app.route("/upload")
+def upload():
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+    return render_template("upload.html")
+
+@app.route("/upload_file", methods=["POST"])
+def upload_file():
+    if 'file' not in request.files:
+        return "No file part in the form."
+#file storage
+    file = request.files['file']
+    
+    if file.filename == '':
+        return "No selected file."
+
+    # Save the file
+    if file:
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        file.save(file_path)
+        return f"File '{file.filename}' uploaded successfully!"
+    
+    return redirect(url_for("upload"))
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
