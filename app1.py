@@ -149,7 +149,7 @@ def table4(table, datafile):
         sem_no = sheet_name[-1] if sheet_name[-1].isdigit() else "N/A"
 
         # Count arrears and absent
-        arrear_students = df[(df["UR"] == "ar") | (df["UR"] == "ab")]
+        arrear_students = df[(df["UR"] == "RA") | (df["UR"] == "ab")]
         arrear_count = len(arrear_students)
 
         # Prepare names and reg. numbers as a single string
@@ -203,16 +203,50 @@ def table4(table, datafile):
 
     print("Table 4 has been updated successfully.")
 
+def table5(sub,n):
+     df=pd.read_excel("Book.xlsx",sheet_name=sub)
+     data=[]
+     data.append(n)
+     data.append(sub)
+     data.append(sub)
+     data.append("ctype")
+     data.append("ctype")
+     data.append(1)
+     data.append(2)
+     data.append(3)
+     data.append(4)
+     data.append(len(df[df["UR"]=='O']))
+     data.append(len(df[df["UR"]=='A+']))
+     data.append(len(df[df["UR"]=='A']))
+     data.append(len(df[df["UR"]=='B+']))
+     data.append(len(df[df["UR"]=='B']))
+     data.append(len(df[df["UR"]=='C']))
+     return data
+
+
+def table6(n):
+     df=pd.read_excel("Book.xlsx",sheet_name="arrear")
+     data=[]
+     
+
+
+
+
+
+
+
 
 
 
 flg=0
 for table_index, table in enumerate(doc.tables): #to iterate through each table
+
     if len(table.rows)>2:
-        if len(table.rows) < len(subject) and table_index not in [4]:
+        if len(table.rows)-2 < len(subject) and (table_index!=4):
             print(len(table.rows),len(subject))
             for _ in range(len(subject) - (len(table.rows)-2)):
                 table.add_row()#to add rows
+                print("tab index",table_index)
         i=0
         for row_index, row in enumerate(table.rows):#to iterate through row
             if row_index>=2:#to ignore sign table
@@ -228,8 +262,13 @@ for table_index, table in enumerate(doc.tables): #to iterate through each table
                     if (i<len(subject)):
                         data=table2(subject[i],i)
                     flg=1
+                elif table_index==8:
+                    if (i<len(subject)):
+                        data=table5(subject[i],i)
+                    flg=1
+                    print(len(table.rows))
                 else:
-                    print(1)
+                    print("else part")
                 if flg==1:
                     for cell_index, cell in enumerate(row.cells): 
                         cell.text = str(data[cell_index])
@@ -241,8 +280,7 @@ for table_index, table in enumerate(doc.tables): #to iterate through each table
     elif table_index==6:
         table4(table,"Book.xlsx")
     else:
-        continue 
-    i=0
-    if table_index==7:
+        print("last else") 
+    if table_index>=9:
         break
 doc.save("output_checked_cells.docx")
