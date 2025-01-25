@@ -228,16 +228,6 @@ def table6(n):
      df=pd.read_excel("Book.xlsx",sheet_name="arrear")
      data=[]
      
-
-
-
-
-
-
-
-
-
-
 flg=0
 for table_index, table in enumerate(doc.tables): #to iterate through each table
 
