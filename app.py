@@ -49,8 +49,8 @@ def save_details():
         for paragraph in doc.paragraphs:
             if placeholder in paragraph.text:
                 paragraph.text = paragraph.text.replace(placeholder, value)
-
-    doc.save("output.docx")
+        
+        
 
     return redirect(url_for("upload"))
 
@@ -78,14 +78,9 @@ def upload_file():
     
     return redirect(url_for("upload"))
 
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
 datafile=pd.ExcelFile("Book.xlsx")
 subject=["MA3354","CS3301","CS3351","CS3352","CS3391"]
-doc = Document("finaldoc.docx")
+doc = Document("template.docx")
 j=0
 num=0
 semester=4
@@ -158,13 +153,6 @@ def table2(sub,n):
     dic1.append((len(df[(df["UR"] != 'ab') & (df["UR"] != 'RA')])/len(df["name"]))*100)
     print(dic1)
     return dic1
-'''def table3():
-    """SEMESTER WISE ARREAR COUNT (SEMESTER WISE FROM SEM I TO CURRENT SEMESTER)"""
-    df=pd.read_excel("Book.xlsx",sheet_name="Sheet1")
-    lis=[]
-    lis.append()'''
-
-
 
 for table_index, table in enumerate(doc.tables): 
     if len(table.rows)>2:
@@ -196,3 +184,7 @@ for table_index, table in enumerate(doc.tables):
     if table_index==4:
         break
 doc.save("output_checked_cells.docx")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
