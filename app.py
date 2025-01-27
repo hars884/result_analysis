@@ -1,6 +1,6 @@
 import pandas as pd
 from docx import Document
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file
 import os
 
 app = Flask(__name__)
@@ -101,14 +101,18 @@ def upload():
             doc.save(final_output_path)
 
             flash("File successfully uploaded and processed!")
-            return redirect(url_for("upload"))
+            return redirect(url_for("download_path"))
 
     return render_template('upload.html')
 
 @app.route("/download")
 def download():
-    filename = "final_output.docx"  # Or whichever file you want to allow downloading
-    return render_template("download.html", filename=filename)
+    filename = os.path.join(app.config['UPLOAD_FOLDER'], "final_output.docx")
+    return send_file(filename, as_attachment=True)
+
+@app.route("/download_path")
+def download_path():
+    return render_template("download.html")
 
 
 def process_file(datafile, doc):
