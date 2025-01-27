@@ -9,14 +9,10 @@
 <body>
     <div class="form-container">
         <h1>Welcome, <span id="usernameDisplay">{{ username }}</span></h1>
-        <form method="POST" action="{{ url_for('save_details') }}"> 
+        <form method="POST" action="{{ url_for('save_details') }}">
             <div class="form-row">
                 <label for="program">Program:</label>
                 <input type="text" id="program" name="program" required>
-            </div>
-            <div class="form-row">
-                <label for="section">Section:</label>
-                <input type="text" id="section" name="section" required>
             </div>
             <div class="form-row">
                 <label for="year">Year:</label>
@@ -25,6 +21,10 @@
             <div class="form-row">
                 <label for="academicYear">Academic Year:</label>
                 <input type="text" id="academicYear" name="academicYear" required>
+            </div>
+            <div class="form-row">
+                <label for="section">Section:</label>
+                <input type="text" id="section" name="section" required>
             </div>
             <div class="form-row">
                 <label for="semester">Semester:</label>
@@ -38,8 +38,10 @@
                 <label for="date">Date:</label>
                 <input type="date" id="date" name="date" required>
             </div>
-            <button type="submit" id="submitButton">Submit</button> 
-        </form>
+            <div class="button-row">
+                <button type="submit" id="submitButton">Submit</button>
+            </div>
+        </form>        
     </div>
     <script src="details.js"></script>
 </body>
