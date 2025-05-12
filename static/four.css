@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    background-image: url('hhhh.png'); /* Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+    font-size: 16px;
+}
+
+/* Glass Effect for the Container */
+.glass-container {
+    background: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    backdrop-filter: blur(15px); /* Stronger blur effect for glass look */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Title Styling */
+h2 {
+    color: #000000;
+    font-size: 26px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Link Button Styling */
+.download-btn {
+    display: inline-block;
+    background-color: #2575fc;
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn:hover {
+    background-color: #1b5282;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .glass-container {
+        padding: 25px;
+        max-width: 80%;
+    }
+
+    h2 {
+        font-size: 22px;
+        margin-bottom: 25px;
+    }
+
+    .download-btn {
+        font-size: 16px;
+        padding: 12px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-container {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .download-btn {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}

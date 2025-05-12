@@ -1,0 +1,110 @@
+/* Overall body styling */
+body {
+    background-image: url('hhhh.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif; /* Use Poppins font for modern look */
+    color: #000000;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Glass container styling */
+.glass-container {
+    width: 350px; /* Increased width for better layout */
+    padding: 30px; /* Adjusted padding for better spacing */
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px); /* More blur for a sleek effect */
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1;
+}
+
+/* Login box styling */
+.login-box {
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px; /* Slightly larger font */
+    font-weight: 600; /* Bold font */
+    margin-bottom: 20px; /* Add spacing below heading */
+    color: #000000; /* Make text white to contrast the background */
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Space between input fields and button */
+}
+
+/* Input fields styling */
+input {
+    padding: 12px; /* More padding for better usability */
+    width: 100%;
+    max-width: 280px; /* Input box width */
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.5); /* Light transparent background */
+    border: 1px solid #54b6ce;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+input::placeholder {
+    color: #888888; /* Subtle placeholder text color */
+}
+
+input:focus {
+    outline: none;
+    border-color: #54b6ce;
+    box-shadow: 0 0 5px rgba(84, 182, 206, 0.5);
+}
+
+/* Button styling */
+button {
+    padding: 12px;
+    width: 100%;
+    max-width: 280px;
+    border: none;
+    border-radius: 8px;
+    background: #54b6ce;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+button:hover {
+    background: transparent;
+    color: #54b6ce;
+    border: 1px solid #54b6ce;
+}
+
+/* Additional hover effect for better UX */
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(84, 182, 206, 0.5);
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .glass-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    input, button {
+        max-width: 100%;
+    }
+}
